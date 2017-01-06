@@ -1,0 +1,1 @@
+define("common/ui/Checkbox",["plugin/jquery","common/ui/Radio"],function(a,b,c){a("plugin/jquery");var d=a("common/ui/Radio");c.exports={init:function(){if(!window.addEventListener&&!window.initedCheckbox){var a="input[type=checkbox]";$(document.body).delegate(a,"click",function(){d.match($(this))}),d.match($(a)),window.initedCheckbox=!0}}}});
