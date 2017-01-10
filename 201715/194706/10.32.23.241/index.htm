@@ -34,7 +34,7 @@ select {
 }
 .disabled {
 	opacity: 0.4;
-	filter: alpha(opacity=40);	
+	filter: alpha(opacity=40);
 	pointer-events: none;
 	cursor: default;
 }
@@ -149,31 +149,31 @@ seajs.use([
     Radio.init();
     Checkbox.init();
     Select.init();
-    
+
     <span style="color:green;">// 日期</span>
     new DateTime($('#achieveDate'));
-    
+
     <span style="color:green;">// 黑色tips初始化</span>
     new Tips($('.ui_tips'));
-    
+
     <span style="color:green;">// 弹框</span>
     window.alert = function(message) {
         new Dialog().alert(message);
     };
-    
+
     <span style="color:green;">// 验证</span>
-    new Validate(elForm, fnSubmit);		
+    new Validate(elForm, fnSubmit);
 });</pre>
 </div>
-<link rel="stylesheet" href="http://mp.gtimg.cn/assetscom/theme/modern/common/common.css">
 <script src="./css/sea.js"></script>
 <script>
 window.seajs &&
 seajs.config({
-    base: "//mp.gtimg.cn/old_mp/assets/js",
+    //base: "//mp.gtimg.cn/old_mp/assets/js",
+		base: "http://10.32.23.241:1422/old_mp/assets/js",
 	map: [[/^(.*\.(?:css|js))(.*)$/i, '$1?v=' + Math.random()]],
     alias: {
-		jquery: 'plugin/jquery'	
+		jquery: 'plugin/jquery'
 	}
 }).use(['jquery',
 			'common/ui/Radio',
@@ -192,42 +192,42 @@ seajs.config({
 		freight = 0,
 		// 运费险
 		insurance = 0;
-		
+
 		// 真实值
 		radioTypes.each(function() {
 			if ($(this).prop('checked')) {
-				unitPrice = this.value;	
+				unitPrice = this.value;
 			}
 		});
-		
+
 		number = elNumber.val();
-		
+
 		freight = elCity.val() || 0;
-		
+
 		if (elInsur.prop('checked')) {
 			insurance = elInsur.val();
 		}
-		
+
 		var total = unitPrice * number + freight*1 + insurance*1;
-		
+
 		if (unitPrice == 0) {
 			total = 0;
 		}
-		
+
 		elTotal.html(total || 0);
-		
+
 	};
-	
+
 	var fnSubmit = function() {
 		alert('提交的数据是：' + elForm.serialize());
 	};
-	
+
 	var radioTypes = $('input[name="type"]').click(function() {
 		$(this).parent().find('p').hide();
 		$('#' + this.id + 'P').show();
 		fnMoney();
-	}), 
-	elNumber = $('#number').on('oninput' in document.body? 'input': 'change', fnMoney), 
+	}),
+	elNumber = $('#number').on('oninput' in document.body? 'input': 'change', fnMoney),
 	elCity = $('#citySelect').change(function() {
 		var elPrice = $('#transPrice');
 		if (this.value) {
@@ -236,27 +236,28 @@ seajs.config({
 			elPrice.html(0).parent().hide();
 		}
 		fnMoney();
-	}), 
-	elInsur = $('#checkInsur').click(fnMoney), 
+	}),
+	elInsur = $('#checkInsur').click(fnMoney),
 	elForm = $('#validateForm').submit(function(event) {
 		if (!$(this).attr('novalidate')) {
 			fnSubmit();
 		}
 		event.preventDefault();
-	}), 
-	elTotal = $('#total');	
-	
-	
+	}),
+	elTotal = $('#total');
+
+
 	// 加载mpqq  也就是QQ公众号需要的脚本
-	(function() {
+	$('#excuteBtn').on('click',function() {
 		if ($(this).hasClass('disabled')) return false;
-		
+
 		// 加载CSS
 		var style = document.createElement('link');
 		style.rel = 'stylesheet';
-		style.href = 'http://mp.gtimg.cn/assetscom/theme/modern/common/common.css';
+		//style.href = 'http://mp.gtimg.cn/assetscom/theme/modern/common/common.css';
+		style.href = 'http://10.32.23.241:1422/assetscom/theme/modern/common/common.css';
 		document.getElementsByTagName('head')[0].appendChild(style);
-		
+
 		// 加载JS
 		seajs.use([
 			'common/ui/Radio',
@@ -271,26 +272,26 @@ seajs.config({
 			Radio.init();
 			Checkbox.init();
 			Select.init();
-			
+
 			// 日期
 			new DateTime($('#achieveDate'));
-			
+
 			// 黑色tips初始化
 			new Tips($('.ui_tips'));
-			
+
 			// 弹框
 			window.alert = function(message) {
 				new Dialog().alert(message);
 			};
-			
+
 			// 验证
-			new Validate(elForm, fnSubmit);		
+			new Validate(elForm, fnSubmit);
 		});
-		
+
 		elForm.addClass('loaded');
-		
+
 		$(this).html('加载和执行成功').addClass('disabled');
-	})();
+	});
 });
 
 </script>
